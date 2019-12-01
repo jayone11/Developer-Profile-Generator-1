@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require("axios");
-const generateHTML = require("./generateHTML");
+const generateHTML = require("./generateHTML.js");
 const util = require("util");
 
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -61,17 +61,26 @@ inquirer
                 stars: stars.data.length,
             };
 
-        const writeToHTML = function(generateHTML){
-            writeFileAsync("index.html", generateHTML);
-            }
-        
-        console.log(data.username);
-        console.log(data.location);
-        console.log(data.repos);
-        console.log(data.stars);
-        // generateHTML(data);
-        // writeToHTML(generateHTML(data));
+            console.log(data.username);
+            console.log(data.location);
+            console.log(data.repos);
+            console.log(data.stars);
 
+        const writeFileAsync = (function(generateHTML){
+            const stringGitData = JSON.stringify(generateHTML);
+            fs.writeFile("index.html", stringGitData, (err) => {
+                if(err){
+                    console.log("Writing to File: Not Successful");
+                    console.log(err);
+                }
+                else{
+                    console.log("Writing to File: Successful!")
+                    console.log(stringGitData);
+                }
+            });
+        });
+        // generateHTML(data);
+        // writeFileAsync(generateHTML(data));
         })
     })
 });
