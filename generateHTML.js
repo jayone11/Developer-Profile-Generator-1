@@ -185,7 +185,7 @@ function generateHTML(data) {
         }
 </html>`
       };
-module.exports = {
-  generateHTML,
-  colors
-}
+// module.exports = {
+//   generateHTML,
+//   colors
+// }
